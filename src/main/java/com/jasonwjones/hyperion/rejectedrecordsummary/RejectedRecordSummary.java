@@ -1,3 +1,17 @@
+/* Copyright 2013 Jason W. Jones
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License. */
+
 package com.jasonwjones.hyperion.rejectedrecordsummary;
 
 import java.util.ArrayList;
@@ -13,13 +27,20 @@ import java.util.Set;
  * about a set of rejected records, such as those loaded from an Essbase
  * rejected record file with help from the RejectedRecordProcesor class.
  * 
- * This class is immutable, because immutable stuff is cool.
+ * This class is immutable, because immutable stuff is cool. You can't/shouldn't
+ * modify the data inside this object after it is constructed. If you process
+ * more rows you would just create a new summary from the proessor.
  * 
  * @author Jason W. Jones
  * 
  */
 public class RejectedRecordSummary {
 
+	/**
+	 * Internal list of the rejected entries. After construction this list will
+	 * be sorted. This was chosen over using a SortedSet or other collection
+	 * implementations for simplicity.
+	 */
 	private List<RejectedRecordEntry> entries;
 
 	/**
