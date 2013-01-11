@@ -1,4 +1,5 @@
-/* Copyright 2013 Jason W. Jones
+/**
+ * Copyright 2013 Jason W. Jones
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -10,7 +11,8 @@
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations under
- * the License. */
+ * the License.
+ */
 
 package com.jasonwjones.hyperion.rejectedrecordsummary;
 
@@ -39,6 +41,11 @@ import java.util.Map;
  */
 public class RejectedRecordProcessor {
 
+	/**
+	 * Internal representation of missing member names and counts. This data
+	 * structure happens to be the exact same as needed for the one constructor
+	 * to RejectedRecordSummary, so be careful if you feel like changing this.
+	 */
 	private Map<String, Integer> unknownMembers = new HashMap<String, Integer>();;
 
 	/**
@@ -133,9 +140,6 @@ public class RejectedRecordProcessor {
 	 *            used.
 	 */
 	public static void main(String[] args) {
-		args = new String[1];
-		args[0] = "/Users/jasonwjones/Development/saxbi-workspace/rejected-record-summary/src/test/resources/sample1.txt";
-
 		RejectedRecordProcessor processor = new RejectedRecordProcessor();
 
 		try {

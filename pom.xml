@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jasonwjones.hyperion.rejectedrecordsummary</groupId>
 	<artifactId>rejected-record-summary</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Rejected Record Summary</name>
 	<description>Command line Java program and library that processes a Hyperion Essbase data rejects file and is able to provide stats about the reasons for records being rejected.</description>
 
@@ -38,4 +38,5 @@
 			</plugin>
 		</plugins>
 	</build>
+	<url>http://www.jasonwjones.com/projects/rejected-record-summary/</url>
 </project>
