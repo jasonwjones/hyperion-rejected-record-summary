@@ -55,25 +55,30 @@ public class RejectedRecordProcessor {
 	 */
 	private final static String BEGIN_TEXT = "\\\\ Member ";
 	private final static String END_TEXT = " Not Found In Database";
+
+	/**
+	 * Pre-computed length of the prefix string that we'll use to determine the
+	 * start of the member name we extract with subtring()
+	 */
 	private final static int BEGIN_TEXT_LENGTH = BEGIN_TEXT.length();
 
 	/**
-	 * Process a file into our stats.
+	 * Process a file into the stats of this object (which are used to build a
+	 * summary).
 	 * 
 	 * @param filename the name of the file
 	 * @throws FileNotFoundException if file not found
 	 * @throws IOException if error reading file
 	 */
 	public void process(String filename) throws FileNotFoundException, IOException {
-		FileReader fileReader = new FileReader(filename);
-		process(fileReader);
+		process(new FileReader(filename));
 	}
 
 	/**
 	 * Process a given input stream (such as created from a file or even an
 	 * object in a database) -- data is data
 	 * 
-	 * @param inputStream the inputstream
+	 * @param inputStream the inputStream to read
 	 * @throws IOException if there is an error reading the stream
 	 */
 	public void process(InputStream inputStream) throws IOException {
@@ -89,10 +94,10 @@ public class RejectedRecordProcessor {
 	 */
 	public void process(Reader reader) throws IOException {
 		BufferedReader bufferedReader = new BufferedReader(reader);
-		String line;
-		while ((line = bufferedReader.readLine()) != null) {
+		for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
 			processLine(line);
 		}
+		bufferedReader.close();
 	}
 
 	/**
@@ -124,12 +129,8 @@ public class RejectedRecordProcessor {
 	 * @param memberName the member name to increment
 	 */
 	private void incrementNotFound(String memberName) {
-		if (unknownMembers.containsKey(memberName)) {
-			Integer count = unknownMembers.get(memberName);
-			unknownMembers.put(memberName, count + 1);
-		} else {
-			unknownMembers.put(memberName, 1);
-		}
+		Integer count = unknownMembers.containsKey(memberName) ? unknownMembers.get(memberName) + 1 : 1;
+		unknownMembers.put(memberName, count);
 	}
 
 	/**
@@ -158,9 +159,8 @@ public class RejectedRecordProcessor {
 			System.exit(1);
 		}
 
-		RejectedRecordSummary summary = processor.createSummary();
 		RejectedRecordSummaryPrinter printer = new RejectedRecordSummaryPrinter();
-		printer.print(summary);
+		printer.print(processor.createSummary());
 	}
 
 }

@@ -129,8 +129,7 @@ public class RejectedRecordSummary {
 	 * @return a list with the top most rejected entries
 	 */
 	public List<RejectedRecordEntry> getMostRejectedRecords(int top) {
-		if (top > entries.size()) top = entries.size();
-		return entries.subList(0, top);
+		return entries.subList(0, Math.min(top, entries.size()));
 	}
 
 	/**
@@ -144,7 +143,7 @@ public class RejectedRecordSummary {
 
 	@Override
 	public String toString() {
-		return "RejectedRecordSummary [entries=" + entries + "]";
+		return "RejectedRecordSummary [entryCount=" + entries.size() + "]";
 	}
 
 }
