@@ -1,74 +1,122 @@
 <!DOCTYPE html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Hyperion-rejected-record-summary : A small library/runnable jar that can be used to process one or several Hyperion Essbase rejected record files to provide easy reporting/analysis." />
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-    <title>Hyperion-rejected-record-summary</title>
+    <title>Hyperion Rejected Record Summary by jasonwjones</title>
   </head>
 
   <body>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/jasonwjones/hyperion-rejected-record-summary">View on GitHub</a>
+    <header>
+      <div class="container">
+        <h1>Hyperion Rejected Record Summary</h1>
+        <h2>A small library/runnable jar that can be used to process one or several Hyperion Essbase rejected record files to provide easy reporting/analysis.</h2>
 
-          <h1 id="project_title">Hyperion-rejected-record-summary</h1>
-          <h2 id="project_tagline">A small library/runnable jar that can be used to process one or several Hyperion Essbase rejected record files to provide easy reporting/analysis.</h2>
+        <section id="downloads">
+          <a href="https://github.com/jasonwjones/hyperion-rejected-record-summary/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/jasonwjones/hyperion-rejected-record-summary/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/jasonwjones/hyperion-rejected-record-summary" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/jasonwjones/hyperion-rejected-record-summary/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/jasonwjones/hyperion-rejected-record-summary/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+    <div class="container">
+      <section id="main_content">
+        <h1>Hyperion Rejected Record Summary</h1>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>Welcome to GitHub Pages.</h3>
+<p>Hyperion Rejected Record Summary (rejected-record-summary) is a small Java library/command-line program for processing data from rejected record files generated during a data file load to a Hyperion Essbase OLAP cube.</p>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>As with most/all of my open source Hyperion utilities, it is the extension, elaboration, and cleanup of a concept I have used in the past in various production environments.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<p>This program can be used on the command-line as well as a library that can be plugged easily in to your own Java projects. On the command line, this program can read from <code>STDIN</code> or be given a rejected record file to process. It will scan through the file and compile stats about the rejected records it finds. </p>
+
+<h2>Usefulness</h2>
+
+<p>The predecessor to this program was used as part of an automation process that would analyze the rejected records and put that information into an email that was sent to myself and others containing information about the records that could not be processed during an automation run. </p>
+
+<p>Instead of attaching the contents of the rejected record file itself, the high-level stats can be attached or printed instead for more useful at-a-glance functionality.</p>
+
+<p>Additionally, the processing in this library is useful to be embedded in such contexts as a Dashboard, for example.</p>
+
+<p><strong>What about perl/awk/grep/foo?</strong></p>
+
+<p>You can achieve most/all of this functionality with a clever perl one-liner or piping things through some Unix command-line stuff. That's a dandy approach and actually the one this originally took years ago. But this method lends itself to putting in a servlet or otherwise integrating into more enterprisey contexts, so there you have it.</p>
+
+<h2>Disclaimer</h2>
+
+<p>Rejected Record Summary comes with absolutely no warranty and I will not be held responsible for damaging your data, server, software, or anything related to these processes. Please use it at your own risk and always test in a development environment. Please let me know of any issues you run into so they can be addressed as time permits.</p>
+
+<h2>Download</h2>
+
+<p>You can download the latest published version of Rejected Record Summary from <a href="http://www.jasonwjones.com/downloads/rejected-record-summary/">here</a>.</p>
+
+<h2>Usage</h2>
+
+<p>RRS can be given a filename, multiple filenames, or process data from <code>STDIN</code>. For example, here would be an example of processing a single rejected record file:</p>
+
+<pre><code>java -jar rejected-record-summary.jar reject-file.txt
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>You can also process multiple files:</p>
 
-<h3>Designer Templates</h3>
+<pre><code>java -jar rejected-record-summary.jar reject-file1.txt reject-file2.txt
+</code></pre>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>Or pipe data directly into it:</p>
 
-<h3>Rather Drive Stick?</h3>
+<pre><code>cat reject-file.txt | java -jar rejected-record-summary.jar
+</code></pre>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>Which is basically the same as this:</p>
 
-<h3>Authors and Contributors</h3>
+<pre><code>java -jar rejected-record-summary.jar &lt; reject-file.txt
+</code></pre>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<h2>Example Output</h2>
 
-<h3>Support or Contact</h3>
+<p>Output is very rudimentary since that's meant to be customized by another Java program (see the method calls below in the Using as a Library section). Here's an example of output from the stock <code>RejectedRecordSummaryPrinter</code> that is included for demonstration purposes.</p>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<pre><code>Number of rejected records: 50000
+Number of unique rejects  : 9083
+Top 5 rejected: 
+- RejectedRecordEntry [memberName=Ac.0170126, rejectCount=24]
+- RejectedRecordEntry [memberName=Ac.0171026, rejectCount=24]
+- RejectedRecordEntry [memberName=Ac.0453902, rejectCount=24]
+- RejectedRecordEntry [memberName=Ac.0170926, rejectCount=24]
+- RejectedRecordEntry [memberName=Ac.0397511, rejectCount=24]
+Top 100 rejected members account for 4.12 % of all rejected rows
+</code></pre>
+
+<h2>Using as a Library</h2>
+
+<p>RRS provides a clean and tight API on its summary class that can be used to easily report some statistics for a single or set of rejected record data files.</p>
+
+<p>Of note, the library provides such useful methods/functions as the following:</p>
+
+<ul>
+<li><p><code>getTotalRejectedRecords()</code>: calculates a count of all of the rejected records (this is the same as the number of entries in the rejected record file)</p></li>
+<li><p><code>getNumberOfUniqueRejects()</code>: returns the number of unique member names that contributed to a rejected record. Effectively this filters out the duplicates with respect to member names in the rejected record file(s)</p></li>
+<li><p><code>getRejectedRecordMemberNames()</code>: returns just the set of member names that contributed to a rejected record</p></li>
+<li><p><code>getMostRejectedRecords(int top)</code>: returns the member names and reject count for the top X most rejected member names sorted by how many records there were</p></li>
+<li><p><code>getTopRejectPercentOfTotal()</code>: returns the percentage of total rejected records that the top X most common rejected member names contributed to, row count-wise</p></li>
+</ul><p>Note that the RejectedRecordSummary class is typically created from the RejectedRecordProcessor. The processor class provides several convenience functions for reading in data from a file or a stream, so you can easily program against it with various data sources.</p>
+
+<h2>Building</h2>
+
+<p>Assuming you have all of the dependencies setup correctly on your system (Essbase jar files installed as artifacts) you can run a <code>mvn clean compile assembly:single</code> to create the runnable jar.</p>
+
+<h2>License</h2>
+
+<p>RRS is licensed under the fairly liberal Apache Software License version 2. You can pretty much do anything you want with this code. Of course, if you have improvements they are welcome to be integrated back into the main codebase.</p>
       </section>
     </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Hyperion-rejected-record-summary maintained by <a href="https://github.com/jasonwjones">jasonwjones</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
     
-
   </body>
 </html>
